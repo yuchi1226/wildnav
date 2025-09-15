@@ -10,7 +10,7 @@ import os
 ############################################################################################################
 
 csv_filename = 'photo_metadata.csv' # csv file with drone image metadata containing GNSS location
-photo_folder = '../assets/query/' # folder with drone images
+photo_folder = '../assets_彰師大/query/' # folder with drone images
  
 csv_filename = photo_folder + csv_filename
 

@@ -14,7 +14,8 @@ import requests
 ############################################################################################
 
 # Path to the folder where the map will be saved
-MAP_PATH = "../assets/maps/map_2/"
+MAP_PATH = "../assets_彰師大/maps/"
+#MAP_PATH = "../test/maps/"
 class FlightZone:
     """A rectangle shaped flight area defined by 2 points (latitudes and longitudes)"""
     def __init__(self, top_left_lat, top_left_lon,\
@@ -52,7 +53,8 @@ def csv_write_image_location():
 # These 2 variables determine the number of images that form the map
 
 #define as a pair of coordinates determining a rectangle in which the satellite photos will be taken
-flight_zone = FlightZone(60.408615, 22.460445, 60.400855, 22.471289)
+#flight_zone = FlightZone(60.408615, 22.460445, 60.400855, 22.471289)
+flight_zone = FlightZone(24.084400, 120.553420, 24.080355, 120.563282)
 
 #define as height (latitude) and width (longitude) of the patch to be taken
 patch_size = PatchSize(0.001676, 0.00341)
@@ -87,7 +89,7 @@ size = "640x640"  # maximum allowed size
 maptype = "satellite"
 scale = "2" # maximum allowed scale
 #restricted by IP address, so you will have to generate your own
-API_KEY = "AIzaSyAclBCbWo0rwQIaezGcXM6X3S_Otv-hHOQ"
+API_KEY = "AIzaSyAuTAq4_2iO9TCg_C76_lgMgWiIzyLD8a0"
 
 URL = "https://maps.googleapis.com/maps/api/staticmap?" # base URL for the Google Maps API
 
