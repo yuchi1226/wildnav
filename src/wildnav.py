@@ -113,7 +113,7 @@ def csv_read_sat_map(filename):
     
 def csv_write_image_location(photo):
     header = ['Filename', 'Latitude', 'Longitude', 'Calculated_Latitude', 'Calculated_Longitude', 'Latitude_Error', 'Longitude_Error', 'Meters_Error', 'Corrected', 'Matched']
-    with open('../results/calculated_coordinates.csv', 'a', encoding='UTF8') as f:
+    with open('../results_ncue/calculated_coordinates.csv', 'a', encoding='UTF8') as f:
         writer = csv.writer(f)        
         photo_name = photo.filename.split("/")[-1]
         loc1 = ( photo.latitude, photo.longitude)

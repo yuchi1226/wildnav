@@ -28,8 +28,8 @@ def match_image():
     resize = [800] # Resize the image to this size before processing. Set to None to disable resizing.
     superglue = 'outdoor' # The SuperGlue model to use. Either 'indoor' or 'outdoor'.
     max_keypoints = -1 # -1 keep all keypoints  
-    keypoint_threshold = 0.01 # Remove keypoints with low confidence. Set to -1 to keep all keypoints.
-    nms_radius = 4 # Non-maxima suppression: keypoints with similar responses in a small neighborhood are removed.
+    keypoint_threshold = 0.005 # Remove keypoints with low confidence. Set to -1 to keep all keypoints.
+    nms_radius = 3 # Non-maxima suppression: keypoints with similar responses in a small neighborhood are removed.
     sinkhorn_iterations = 20 # Number of Sinkhorn iterations for matching.
     match_threshold = 0.5 # Remove matches with low confidence. Set to -1 to keep all matches.
     show_keypoints = True # Show the detected keypoints.
