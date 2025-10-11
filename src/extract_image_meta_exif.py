@@ -18,7 +18,8 @@ def convert_gnss_coord(lat_or_lon):
     """
     Convert GNSS coordinate to decimal degrees instead of minutes and seconds
     """
-    deg, deg_string, minutes,discard_1,  seconds, discard_2, direction =  re.split('[\s°\'"]', lat_or_lon)
+    # Use raw string for regex to fix the escape sequence warning
+    deg, deg_string, minutes, discard_1, seconds, discard_2, direction = re.split(r'[\s°\'"]', lat_or_lon)
     converted = (float(deg) + float(minutes)/60 + float(seconds)/(60*60)) * (-1 if direction in ['W', 'S'] else 1)
     return str(converted)
 
@@ -48,11 +49,14 @@ for image in images_list:
     imgPath = photo_folder + image
     process = subprocess.Popen([exifToolPath,imgPath],stdout=subprocess.PIPE, stderr=subprocess.STDOUT,universal_newlines=True) 
     #get the tags in dict 
-    for tag in process.stdout:
+    for tag in process.stdout: #type: ignore
         line = tag.strip().split(':')
         infoDict[line[0].strip()] = line[-1].strip()
 
     #Default values
+    filename = image  # Use the current image name as default
+    lat = "NaN"
+    lon = "NaN"
     altitude = "NaN"
     gimball_roll = "NaN"
     gimball_yaw = "NaN"
@@ -71,7 +75,7 @@ for image in images_list:
         altitude = infoDict['Relative Altitude']
     elif 'GPS Altitude' in infoDict:
         altitude = infoDict['GPS Altitude']
-        altitude =  re.search(r'\d+', altitude).group() #keep only the number value, discard text
+        altitude =  re.search(r'\d+', altitude).group() #keep only the number value, discard text #type: ignore
 
     if 'Gimbal Roll Degree' in infoDict:
         gimball_roll = infoDict['Gimbal Roll Degree']
@@ -86,13 +90,13 @@ for image in images_list:
     if 'Flight Pitch Degree' in infoDict:    
         flight_pitch = infoDict['Flight Pitch Degree']
 
-    lat = convert_gnss_coord(lat)
-    lon = convert_gnss_coord(lon)
+    # Only convert coordinates if they're not "NaN"
+    if lat != "NaN" and lon != "NaN":
+        lat = convert_gnss_coord(lat)
+        lon = convert_gnss_coord(lon)
 
     f.write('\n' + filename + ',' + lat + ',' + lon + ',' + altitude + ',' + gimball_roll + ',' + gimball_yaw + ',' + gimball_pitch + ',' + flight_roll + ','  + flight_yaw + ','+ flight_pitch)
 
 print("Done reading metadata. Metadata saved to " + csv_filename)
 
 f.close()
-
-

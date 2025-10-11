@@ -14,7 +14,7 @@ import requests
 ############################################################################################
 
 # Path to the folder where the map will be saved
-MAP_PATH = "../assets_彰師大/maps/"
+MAP_PATH = "../assets_彰師大/map/"
 #MAP_PATH = "../test/maps/"
 class FlightZone:
     """A rectangle shaped flight area defined by 2 points (latitudes and longitudes)"""

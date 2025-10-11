@@ -1,20 +1,24 @@
 """Core module. Contains the main functions for the project."""
 import csv
-import cv2
-import haversine as hs
-from haversine import Unit
+import cv2 
+import haversine as hs 
+from haversine import Unit 
 import superglue_utils
 
 ############################################################################################################
 # Important variables
 ############################################################################################################
 
-map_path = "../assets/map/"
-map_filename = "../assets/map/map.csv" #  csv file with the sattelite geo tagged images
-drone_photos_filename = "../assets/query/photo_metadata.csv" # csv file with the geo tagged drone images;
+# map_path = "../assets/map/"
+# map_filename = "../assets/map/map.csv" #  csv file with the sattelite geo tagged images
+# drone_photos_filename = "../assets/query/photo_metadata.csv" # csv file with the geo tagged drone images;
                                                              # the geo coordinates are only used to compare
                                                              # the calculated coordinates with the real ones
                                                              # after the feature matching
+
+map_path = "../assets_彰師大/map/"
+map_filename = "../assets_彰師大/map/map.csv"
+drone_photos_filename = "../assets_彰師大/query/photo_metadata.csv"
 
 ############################################################################################################
 # Class definitios
@@ -69,7 +73,7 @@ def csv_read_drone_images(filename):
     "photo_name.png",60.506787,22.311631,60.501037,22.324467
     """
     geo_list_drone = []
-    photo_path = "../assets/query/"
+    photo_path = "../assets_彰師大/query/"
     with open(filename) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         line_count = 0
@@ -92,7 +96,7 @@ def csv_read_sat_map(filename):
     "photo_name.png",60.506787,22.311631,60.501037,22.324467
     """
     geo_list = []
-    photo_path = "../assets/map/"
+    photo_path = "../assets_彰師大/map/"
     print("opening: ",filename)
     with open(filename) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
