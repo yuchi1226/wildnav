@@ -14,8 +14,7 @@ import requests
 ############################################################################################
 
 # Path to the folder where the map will be saved
-MAP_PATH = "../assets_彰師大/map/"
-#MAP_PATH = "../test/maps/"
+MAP_PATH = "../assets_ncue/map/"
 class FlightZone:
     """A rectangle shaped flight area defined by 2 points (latitudes and longitudes)"""
     def __init__(self, top_left_lat, top_left_lon,\
@@ -40,21 +39,26 @@ class PatchSize:
 
 def csv_write_image_location():
     """Writes a csv file with the geographical location of the downloaded satellite images"""
-    header = ["Filename, Top_left_lat,Top_left_lon,Bottom_right_lat,Bottom_right_long"]
+    # 修正：使用正確的列名列表，而不是單個字符串
+    header = ["Filename", "Top_left_lat", "Top_left_lon", "Bottom_right_lat", "Bottom_right_long"]
     file_path = MAP_PATH + 'map.csv'
-    with open(file_path, 'w', encoding='UTF8') as file:
+    with open(file_path, 'w', encoding='UTF8', newline='') as file:  # 添加 newline='' 避免空行
         writer = csv.writer(file)
-        writer.writerow(header)
+        writer.writerow(header)  # 寫入正確的列名
         for photo in photo_list:
-            line = [photo.filename, str(photo.top_left_lat), str(photo.top_left_lon), \
-                   str(photo.bottom_right_lat), str(photo.bottom_right_lon)]
+            # 修正：只使用文件名，而不是完整路徑
+            filename_only = photo.filename.split('/')[-1] if '/' in photo.filename else photo.filename
+            line = [filename_only, 
+                   str(photo.top_left_lat), 
+                   str(photo.top_left_lon), 
+                   str(photo.bottom_right_lat), 
+                   str(photo.bottom_right_lon)]
             writer.writerow(line)
 
 # These 2 variables determine the number of images that form the map
 
 #define as a pair of coordinates determining a rectangle in which the satellite photos will be taken
-#flight_zone = FlightZone(60.408615, 22.460445, 60.400855, 22.471289)
-flight_zone = FlightZone(24.084400, 120.553420, 24.080355, 120.563282)
+flight_zone = FlightZone(24.069793, 120.548037, 24.064620, 120.561510)
 
 #define as height (latitude) and width (longitude) of the patch to be taken
 patch_size = PatchSize(0.001676, 0.00341)
@@ -89,7 +93,7 @@ size = "640x640"  # maximum allowed size
 maptype = "satellite"
 scale = "2" # maximum allowed scale
 #restricted by IP address, so you will have to generate your own
-API_KEY = "AIzaSyAuTAq4_2iO9TCg_C76_lgMgWiIzyLD8a0"
+API_KEY = "AIzaSyDAqwdE2peoEcOtvAvnE5RkeIbswEALfs4"
 
 URL = "https://maps.googleapis.com/maps/api/staticmap?" # base URL for the Google Maps API
 

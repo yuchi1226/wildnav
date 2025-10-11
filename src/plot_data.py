@@ -23,7 +23,7 @@ sns.set(font_scale = 2)
 plt.rcParams['font.sans-serif'] = ['Arial']
 plt.rcParams['axes.edgecolor'] = 'white'
 plt.rcParams['axes.unicode_minus'] = False
-filename = "calculated_coordinates_real_data_1.csv"
+filename = "calculated_coordinates_real_data.csv"
 
 
 

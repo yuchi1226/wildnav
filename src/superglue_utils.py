@@ -17,8 +17,8 @@ def match_image():
     Wrapper function for matching two images, provides an interface to superglue model
     """
     center = None
-    input = '../assets_彰師大/map/'
-    output_dir = "../assets_彰師大/results"
+    input = '../assets_ncue/map/'
+    output_dir = "../results_ncue"
     image_glob = ['*.png', '*.jpg', '*.jpeg', '*.JPG']
     skip = 1
     max_length = 1000000
@@ -224,4 +224,3 @@ def match_image():
     
     return satellite_map_index, center, located_image, features_mean, last_frame, max_matches
     
-
