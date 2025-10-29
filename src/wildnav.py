@@ -202,7 +202,7 @@ for drone_image in drone_images_list:
         # Write the results to the image result file with the best match
         cv2.putText(located_image, "Calculated: " + str(current_location), org = (10,625),fontFace =  cv2.FONT_HERSHEY_DUPLEX, fontScale = 0.8,  color = (0, 0, 0))
         cv2.putText(located_image, "Ground truth: " + str(drone_image.latitude) + ", " + str(drone_image.longitude), org = (10,655),fontFace =  cv2.FONT_HERSHEY_DUPLEX, fontScale = 0.8,  color = (0, 0, 0))
-        cv2.imwrite("../results/" + photo_name + "_located.png", located_image)
+        cv2.imwrite("../results_ncue/" + photo_name + "_located.png", located_image)
         
         print("Image " + str(photo_name) + " was successfully located in the map")
         print("Calculated location: ", str(current_location[0:2]))
