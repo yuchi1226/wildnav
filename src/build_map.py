@@ -1,4 +1,12 @@
-"""Module used for automatically building satellite maps with Google Maps API"""
+"""用於自動從 Google Maps API 建立衛星地圖的模組
+此模組提供以下功能：
+1. 從 Google Maps 下載指定地理區域的衛星圖像
+2. 將圖像組織成結構化的地圖資料庫
+3. 生成地理參考的元數據
+4. 將地圖資料以標準化的 CSV 格式儲存
+
+注意：需要有效的 Google Maps API 金鑰才能運作
+"""
 import csv
 import math
 import shutil
@@ -16,7 +24,8 @@ import requests
 # Path to the folder where the map will be saved
 MAP_PATH = "../assets_ncue/map/"
 class FlightZone:
-    """A rectangle shaped flight area defined by 2 points (latitudes and longitudes)"""
+    """由兩個點（緯度和經度）定義的矩形飛行區域
+    用於指定需要下載衛星圖像的地理範圍"""
     def __init__(self, top_left_lat, top_left_lon,\
          bottom_right_lat, bottom_right_lon, filename = "default"):
         self.filename = filename
@@ -29,7 +38,8 @@ class FlightZone:
         return f"{self.__class__.__name__}; \n{self.top_left_lat}: %f \nt{self.top_left_lon}: \
             \n{self.bottom_right_lat}: %f \n{self.bottom_right_lon} %f" 
 class PatchSize:
-    """Size of a map patch in decimal latitude and longitude"""
+    """地圖片段的大小（以十進制緯度和經度表示）
+    用於定義下載衛星圖像時的分割大小"""
     def __init__(self, lat, lon):
         self.lat = lat
         self.lon = lon

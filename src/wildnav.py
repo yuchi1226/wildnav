@@ -1,4 +1,10 @@
-"""Core module. Contains the main functions for the project."""
+"""WildNav 系統核心模組
+此模組實現了 WildNav 系統的核心功能，包括：
+- 無人機和衛星圖像資料管理
+- 使用 SuperGlue 進行圖像特徵匹配
+- 地理座標計算
+- 資料匯入/匯出工具
+"""
 import csv
 import cv2
 import haversine as hs
@@ -6,22 +12,27 @@ from haversine import Unit
 import superglue_utils
 
 ############################################################################################################
-# Important variables
+# 重要變數定義
 ############################################################################################################
 
 map_path = "../assets_ncue/map/"
-map_filename = "../assets_ncue/map/map.csv" #  csv file with the sattelite geo tagged images
-drone_photos_filename = "../assets_ncue/query/photo_metadata.csv" # csv file with the geo tagged drone images;
-                                                             # the geo coordinates are only used to compare
-                                                             # the calculated coordinates with the real ones
-                                                             # after the feature matching
+map_filename = "../assets_ncue/map/map.csv" # 包含衛星圖像地理標籤的 CSV 檔案
+drone_photos_filename = "../assets_ncue/query/photo_metadata.csv" # 包含無人機圖像地理標籤的 CSV 檔案
+                                                             # 地理座標僅用於在特徵匹配後
+                                                             # 比較計算出的座標與實際座標
+                                                             # 用於評估系統精確度
 
 ############################################################################################################
-# Class definitios
+# 類別定義
 ############################################################################################################
 class GeoPhotoDrone:
-    """Stores a drone photo together with GNSS location
-    and camera rotation parameters
+    """儲存無人機照片及其 GNSS 位置和相機旋轉參數的類別
+    包含：
+    - 檔案名稱
+    - 圖像資料
+    - 地理位置（緯度、經度、高度）
+    - 雲台參數（橫滾、偏航、俯仰）
+    - 飛行姿態參數（橫滾、偏航、俯仰）
     """
     def __init__(self,filename, photo=0, latitude=0, longitude = 0 ,\
          altitude = 0 ,gimball_roll = 0, gimball_yaw = 0, gimball_pitch = 0, flight_roll = 0, flight_yaw = 0, flight_pitch = 0):
@@ -45,7 +56,13 @@ class GeoPhotoDrone:
         return "%s; \nlatitude: %f \nlongitude: %f \naltitude: %f \ngimball_roll: %f \ngimball_yaw: %f \ngimball_pitch: %f \nflight_roll: %f \nflight_yaw: %f \nflight_pitch: %f" % (self.filename, self.latitude, self.longitude, self.altitude, self.gimball_roll, self.gimball_yaw, self.gimball_pitch, self.flight_roll, self.flight_yaw, self.flight_pitch )
         
 class GeoPhoto:
-    """Stores a satellite photo together with (latitude, longitude) for top_left and bottom_right_corner
+    """儲存衛星照片及其地理邊界座標的類別
+    包含：
+    - 檔案名稱
+    - 圖像資料
+    - 左上角座標（緯度、經度）
+    - 右下角座標（緯度、經度）
+    用於定義衛星地圖的地理覆蓋範圍
     """
     def __init__(self, filename, photo, geo_top_left, geo_bottom_right):
         self.filename = filename

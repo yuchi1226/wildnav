@@ -1,4 +1,10 @@
-"""Plots data output from wildnav"""
+"""繪製 WildNav 的輸出資料
+此模組提供 WildNav 結果的視覺化和分析工具：
+1. 繪製真實座標與計算座標的對比圖
+2. 誤差分析和統計計算
+3. 性能指標視覺化
+4. 資料過濾和離群值移除
+"""
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -8,7 +14,8 @@ from sklearn.metrics import mean_squared_error
 from sklearn.metrics import mean_absolute_error
 
 ############################################################################
-# Script what plots ground truth coordinates and calculated coordinates 
+# 繪製真實座標和計算座標的腳本
+# 用於分析定位系統的精確度
 ############################################################################
 
 def mse(actual, predicted):
